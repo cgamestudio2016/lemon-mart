@@ -1,18 +1,16 @@
 import { browser, logging } from 'protractor'
 
-import { AppPage } from './app.po'
-
 describe('workspace-project App', () => {
-  let page: AppPage
+  // let page: AppPage
 
   beforeEach(() => {
-    page = new AppPage()
+    // page = new AppPage()
   })
 
-  it('should display welcome message', () => {
-    page.navigateTo()
-    expect(page.getTitleText()).toEqual('lemon-mart app is running!')
-  })
+  // it('should display welcome message', () => {
+  //   page.navigateTo()
+  //   expect(page.getTitleText()).toEqual('lemon-mart app is running!')
+  // })
 
   afterEach(async () => {
     // Assert that there are no errors emitted from the browser

@@ -15,6 +15,9 @@ import { Component, OnInit } from '@angular/core'
       <a mat-list-item routerLinkActive="active-link" routerLink="/inventory/stock">
         Stock Entry
       </a>
+      <a mat-list-item routerLinkActive="active-link" routerLink="/inventory/products">
+        Products
+      </a>
       <a mat-list-item routerLinkActive="active-link" routerLink="/inventory/categories">
         Categories
       </a>

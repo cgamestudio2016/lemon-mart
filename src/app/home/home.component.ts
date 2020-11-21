@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
+import { AuthService } from 'src/app/auth/auth.service'
 
 @Component({
   selector: 'app-home',
-  template: `
-    <div fxLayout="column" fxLayoutAlign="center center">
-      <span class="mat-display-2">Hello, Limoncu!</span>
-      <button mat-raised-button color="primary" routerLink="/manager">
-        Login as Manager
-      </button>
+  template: `<div
+      *ngIf="(authService.authStatus$ | async)?.isAuthenticated; else doLogin"
+    >
+      <div class="mat-display-4">This is LemonMart! The place where</div>
+      <div class="mat-display-4">Everybody gets a lemon.</div>
     </div>
-  `,
+    <ng-template #doLogin>
+      <app-login></app-login>
+    </ng-template>`,
   styles: [
     `
       div[fxLayout] {
@@ -18,8 +20,6 @@ import { Component, OnInit } from '@angular/core'
     `,
   ],
 })
-export class HomeComponent implements OnInit {
-  constructor() {}
-
-  ngOnInit(): void {}
+export class HomeComponent {
+  constructor(public authService: AuthService) {}
 }

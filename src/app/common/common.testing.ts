@@ -5,9 +5,12 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { SafeResourceUrl, SafeValue } from '@angular/platform-browser'
 import { NoopAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterTestingModule } from '@angular/router/testing'
+import { autoSpyObj } from 'angular-unit-test-helper'
 import { Observable, Subscription, of } from 'rxjs'
+import { AuthService } from 'src/app/auth/auth.service'
 
 import { MaterialModule } from '../material.module'
+import { UiService } from './ui.service'
 
 const FAKE_SVGS = {
   lemon: '<svg><path id="lemon" name="lemon"></path></svg>',
@@ -65,7 +68,10 @@ export class DomSanitizerFake {
 }
 
 // tslint:disable-next-line: no-any
-export const commonTestingProviders: any[] = []
+export const commonTestingProviders: any[] = [
+  { provide: AuthService, useValue: autoSpyObj(AuthService) },
+  { provide: UiService, useValue: autoSpyObj(UiService) },
+]
 
 // tslint:disable-next-line: no-any
 export const commonTestingModules: any[] = [

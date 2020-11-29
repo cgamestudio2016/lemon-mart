@@ -1,11 +1,14 @@
 {
   "name": "lemon-mart",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:prod": "ng build --prod",
+    "build:integration": "cross-conf-env docker image build -f integration.Dockerfile . -t $npm_package_config_imageRepo:latest",
     "test": "ng test",
+    "test:prod": "npm test -- --browsers ChromiumNoSandbox --watch=false",
     "test:debug": "npm test -- --source-map",
     "test:coverage": "npm test -- --code-coverage",
     "lint": "run-p lint:ts lint:tsc",
@@ -17,7 +20,7 @@
     "lint:ts:fix": "tslint --config tslint.json --fix --project . -e \"**/{test,polyfills}.ts\"",
     "lint:tsc": "tsc --noEmit --skipLibCheck",
     "init:env": "init-dev-env generate-dot-env example.env -f",
-    "predocker:build": "npm run build",
+    "predocker:build": "npm run build:prod && npm test -- --watch=false",
     "docker:build": "cross-conf-env docker image build . -t $npm_package_config_imageRepo:$npm_package_version",
     "postdocker:build": "npm run docker:tag",
     "docker:tag": " cross-conf-env docker image tag $npm_package_config_imageRepo:$npm_package_version $npm_package_config_imageRepo:latest",
@@ -30,8 +33,7 @@
     "docker:taillogs": "echo Web Server Logs: && cross-conf-env docker logs -f $npm_package_config_imageName",
     "docker:open": "sleep 2 && cross-conf-env open-cli http://localhost:$npm_package_config_imagePort",
     "docker:debugmessage": "echo Docker Debug Completed Successfully! Hit Ctrl+C to terminate log tailing.",
-    "docker:debug": "run-s -cs docker:build docker:run docker:open docker:debugmessage docker:taillogs",
-    "build:prod": "ng build --prod"
+    "docker:debug": "run-s -cs docker:build docker:run docker:open docker:debugmessage docker:taillogs"
   },
   "private": true,
   "dependencies": {
@@ -106,8 +108,8 @@
     }
   },
   "config": {
-    "imageRepo": "[namespace]/[repository]",
-    "imageName": "custom_app_name",
+    "imageRepo": "siralexmu/lemon-mart",
+    "imageName": "lemon-mart",
     "imagePort": "3000",
     "internalContainerPort": "3000"
   }
